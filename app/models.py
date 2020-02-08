@@ -25,3 +25,4 @@ class Reactors(models.Model):
     rup = models.IntegerField(null=True)
     gec = models.IntegerField(null=True)
     fgc = models.IntegerField(null=True)
+
