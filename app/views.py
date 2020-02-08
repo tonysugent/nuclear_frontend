@@ -3,7 +3,8 @@
 License: MIT
 Copyright (c) 2019 - present AppSeed.us
 """
-
+from django.shortcuts import render
+from .models import Countries, Reactors
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from django.template import loader
@@ -28,3 +29,13 @@ def pages(request):
 
         template = loader.get_template( 'pages/error-404.html' )
         return HttpResponse(template.render(context, request))
+
+@login_required(login_url="/login/")
+def index(request):
+    allcountries = Countries.objects.all()
+    allreactors = Reactors.objects.all()
+    context = {
+        'allcountries': allcountries,
+        'allreactors': allreactors
+    }
+    return render(request, 'pages/ui-tables.html', context)

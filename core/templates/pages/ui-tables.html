@@ -11,7 +11,7 @@
   <div class="col-md-12">
     <div class="card ">
       <div class="card-header">
-        <h4 class="card-title"> Simple Table</h4>
+        <h4 class="card-title"> Countries</h4>
       </div>
       <div class="card-body">
         <div class="table-responsive">
@@ -19,117 +19,35 @@
             <thead class=" text-primary">
               <tr>
                 <th>
-                  Name
-                </th>
-                <th>
                   Country
                 </th>
                 <th>
-                  City
+                  Reactors
+                </th>
+                <th>
+                  Capacity Total
                 </th>
                 <th class="text-center">
-                  Salary
+                  Percent Use
                 </th>
               </tr>
             </thead>
             <tbody>
+              {% for countries in allcountries %}
               <tr>
                 <td>
-                  Dakota Rice
+                  {{ countries.country }}
                 </td>
                 <td>
-                  Niger
+                  {{ countries.reactors }}
                 </td>
                 <td>
-                  Oud-Turnhout
+                  {{ countries.capacity_total }}
                 </td>
                 <td class="text-center">
-                  $36,738
+                  {{ countries.percent_use }}
                 </td>
-              </tr>
-              <tr>
-                <td>
-                  Minerva Hooper
-                </td>
-                <td>
-                  Curaçao
-                </td>
-                <td>
-                  Sinaai-Waas
-                </td>
-                <td class="text-center">
-                  $23,789
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  Sage Rodriguez
-                </td>
-                <td>
-                  Netherlands
-                </td>
-                <td>
-                  Baileux
-                </td>
-                <td class="text-center">
-                  $56,142
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  Philip Chaney
-                </td>
-                <td>
-                  Korea, South
-                </td>
-                <td>
-                  Overland Park
-                </td>
-                <td class="text-center">
-                  $38,735
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  Doris Greene
-                </td>
-                <td>
-                  Malawi
-                </td>
-                <td>
-                  Feldkirchen in Kärnten
-                </td>
-                <td class="text-center">
-                  $63,542
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  Mason Porter
-                </td>
-                <td>
-                  Chile
-                </td>
-                <td>
-                  Gloucester
-                </td>
-                <td class="text-center">
-                  $78,615
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  Jon Porter
-                </td>
-                <td>
-                  Portugal
-                </td>
-                <td>
-                  Gloucester
-                </td>
-                <td class="text-center">
-                  $98,615
-                </td>
+              {% endfor %}
               </tr>
             </tbody>
           </table>
@@ -158,108 +76,26 @@
                   City
                 </th>
                 <th class="text-center">
-                  Salary
+                  rup
                 </th>
               </tr>
             </thead>
             <tbody>
+              {% for reactors in allreactors %}
               <tr>
                 <td>
-                  Dakota Rice
+                  {{ reactors.name }}
                 </td>
                 <td>
-                  Niger
+                  {{ reactors.country_id }}
                 </td>
                 <td>
-                  Oud-Turnhout
+                  {{ reactors.city }}
                 </td>
                 <td class="text-center">
-                  $36,738
+                  {{ reactors.rup}}
                 </td>
-              </tr>
-              <tr>
-                <td>
-                  Minerva Hooper
-                </td>
-                <td>
-                  Curaçao
-                </td>
-                <td>
-                  Sinaai-Waas
-                </td>
-                <td class="text-center">
-                  $23,789
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  Sage Rodriguez
-                </td>
-                <td>
-                  Netherlands
-                </td>
-                <td>
-                  Baileux
-                </td>
-                <td class="text-center">
-                  $56,142
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  Philip Chaney
-                </td>
-                <td>
-                  Korea, South
-                </td>
-                <td>
-                  Overland Park
-                </td>
-                <td class="text-center">
-                  $38,735
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  Doris Greene
-                </td>
-                <td>
-                  Malawi
-                </td>
-                <td>
-                  Feldkirchen in Kärnten
-                </td>
-                <td class="text-center">
-                  $63,542
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  Mason Porter
-                </td>
-                <td>
-                  Chile
-                </td>
-                <td>
-                  Gloucester
-                </td>
-                <td class="text-center">
-                  $78,615
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  Jon Porter
-                </td>
-                <td>
-                  Portugal
-                </td>
-                <td>
-                  Gloucester
-                </td>
-                <td class="text-center">
-                  $98,615
-                </td>
+                {% endfor %}
               </tr>
             </tbody>
           </table>
