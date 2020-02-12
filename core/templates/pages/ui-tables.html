@@ -58,8 +58,8 @@
   <div class="col-md-12">
     <div class="card  card-plain">
       <div class="card-header">
-        <h4 class="card-title"> Table on Plain Background</h4>
-        <p class="category"> Here is a subtitle for this table</p>
+        <h4 class="card-title">Reactors</h4>
+        <p class="category">A list of reactors</p>
       </div>
       <div class="card-body">
         <div class="table-responsive">
@@ -76,7 +76,10 @@
                   City
                 </th>
                 <th class="text-center">
-                  rup
+                  Reference Unit Power
+                </th>
+                <th>
+                  Status
                 </th>
               </tr>
             </thead>
@@ -94,6 +97,9 @@
                 </td>
                 <td class="text-center">
                   {{ reactors.rup}}
+                </td>
+                <td>
+                  {{ reactors.status }}
                 </td>
                 {% endfor %}
               </tr>
