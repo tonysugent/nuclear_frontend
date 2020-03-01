@@ -14,7 +14,99 @@ demo = {
       }
     });
   },
+  initYearsChart: function(years){
+    var ctxGreen = document.getElementById("chartLineGreen").getContext("2d");
 
+    var labels = [];
+    var data = [];
+    for (i=0; i < years.length; i++){
+      labels.unshift(years[i]['fgc'])
+      data.unshift(years[i]['dcount'])
+    };
+
+
+    var gradientStroke = ctxGreen.createLinearGradient(0, 230, 0, 50);
+
+    gradientStroke.addColorStop(1, 'rgba(66,134,121,0.15)');
+    gradientStroke.addColorStop(0.4, 'rgba(66,134,121,0.0)'); //green colors
+    gradientStroke.addColorStop(0, 'rgba(66,134,121,0)'); //green colors
+
+
+    var data = {
+      labels: labels,
+      datasets: [{
+        label: "kWh",
+        fill: true,
+        backgroundColor: gradientStroke,
+        borderColor: '#00d6b4',
+        borderWidth: 2,
+        borderDash: [],
+        borderDashOffset: 0.0,
+        pointBackgroundColor: '#00d6b4',
+        pointBorderColor: 'rgba(255,255,255,0)',
+        pointHoverBackgroundColor: '#00d6b4',
+        pointBorderWidth: 20,
+        pointHoverRadius: 4,
+        pointHoverBorderWidth: 15,
+        pointRadius: 4,
+        data: data,
+      }]
+    };
+
+    var myChart = new Chart(ctxGreen, {
+      type: 'line',
+      data: data,
+      options: gradientChartOptionsConfigurationWithTooltipGreen
+
+    });
+
+  },
+
+  initPieChart: function(piedata){
+
+    var ctx = document.getElementById("chartLinePurple").getContext("2d");
+
+    var dataset=[];
+    var labelset=[];
+
+    for (i=0; i < piedata.length; i++){
+      dataset.push(piedata[i]["capacity_total"]);
+      labelset.push(piedata[i]["country"]);
+    }
+
+    var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
+
+    gradientStroke.addColorStop(1, 'rgba(72,72,176,0.2)');
+    gradientStroke.addColorStop(0.2, 'rgba(72,72,176,0.0)');
+    gradientStroke.addColorStop(0, 'rgba(119,52,169,0)'); //purple colors
+
+    var data = {
+      labels: labelset,
+      datasets: [{
+        label: "Data",
+        fill: true,
+        backgroundColor: gradientStroke,
+        borderColor: '#d048b6',
+        borderWidth: 2,
+        borderDash: [],
+        borderDashOffset: 0.0,
+        pointBackgroundColor: '#d048b6',
+        pointBorderColor: 'rgba(255,255,255,0)',
+        pointHoverBackgroundColor: '#d048b6',
+        pointBorderWidth: 20,
+        pointHoverRadius: 4,
+        pointHoverBorderWidth: 15,
+        pointRadius: 4,
+        data: dataset,
+      }]
+    };
+
+    var myChart = new Chart(ctx, {
+      type: 'pie',
+      data: data,
+      options: gradientChartOptionsConfigurationWithTooltipPie
+    });
+  },
   initDocChart: function() {
     chartColor = "#FFFFFF";
 
@@ -73,7 +165,12 @@ demo = {
     };
 
     ctx = document.getElementById('lineChartExample').getContext("2d");
-
+    var testLabels = [];
+    var testData = [];
+    for (i=0; i < 101; i++){
+      testData.push(i);
+      testLabels.push(i);
+    };
     gradientStroke = ctx.createLinearGradient(500, 0, 100, 0);
     gradientStroke.addColorStop(0, '#80b6f4');
     gradientStroke.addColorStop(1, chartColor);
@@ -86,7 +183,7 @@ demo = {
       type: 'line',
       responsive: true,
       data: {
-        labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        labels: testLabels,
         datasets: [{
           label: "Active Users",
           borderColor: "#f96332",
@@ -99,13 +196,100 @@ demo = {
           fill: true,
           backgroundColor: gradientFill,
           borderWidth: 2,
-          data: [542, 480, 430, 550, 530, 453, 380, 434, 568, 610, 700, 630]
+          data: testData
         }]
       },
       options: gradientChartOptionsConfiguration
     });
   },
+  initOperationalChart: function(opcount) {
+    var ctx = document.getElementById("CountryChart").getContext("2d");
 
+    var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
+
+    gradientStroke.addColorStop(1, 'rgba(72,72,176,0.2)');
+    gradientStroke.addColorStop(0.2, 'rgba(72,72,176,0.0)');
+    gradientStroke.addColorStop(0, 'rgba(119,52,169,0)'); //purple colors
+
+    var myChart = new Chart(ctx, {
+      type: 'bar',
+      responsive: false,
+      legend: {
+        display: false
+      },
+      data: {
+        labels: [opcount[0]['status'], opcount[1]['status'],opcount[2]['status']],
+        datasets: [{
+          label: "Reactors",
+          fill: true,
+          backgroundColor: gradientStroke,
+          hoverBackgroundColor: gradientStroke,
+          borderColor: '#1f8ef1',
+          borderWidth: 2,
+          borderDash: [],
+          borderDashOffset: 0.0,
+          data: [opcount[0]['dcount'],opcount[1]['dcount'],opcount[2]['dcount']],
+        }]
+      },
+      options: gradientBarChartConfiguration
+    });
+
+  },
+  initBigChart1: function(chart_labels,chart_data){
+
+    var ctx = document.getElementById("chartBig1").getContext('2d');
+    var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
+
+    gradientStroke.addColorStop(1, 'rgba(72,72,176,0.1)');
+    gradientStroke.addColorStop(0.4, 'rgba(72,72,176,0.0)');
+    gradientStroke.addColorStop(0, 'rgba(119,52,169,0)'); //purple colors
+    var config = {
+      type: 'bar',
+      data: {
+        labels: chart_labels,
+        datasets: [{
+          label: "Reactors",
+          fill: true,
+          backgroundColor: gradientStroke,
+          borderColor: '#d346b1',
+          borderWidth: 3,
+          borderDash: [],
+          borderDashOffset: 0.0,
+          pointBackgroundColor: '#d346b1',
+          pointBorderColor: 'rgba(255,255,255,0)',
+          pointHoverBackgroundColor: '#d346b1',
+          pointBorderWidth: 10,
+          pointHoverRadius: 4,
+          pointHoverBorderWidth: 15,
+          pointRadius: 1,
+          data: chart_data,
+        }]
+      },
+      options: gradientChartOptionsConfigurationWithTooltipPurple
+    };
+    var myChartData = new Chart(ctx, config);
+    $("#0").click(function() {
+      var data = myChartData.config.data;
+      data.datasets[0].data = chart_data;
+      data.labels = chart_labels;
+      myChartData.update();
+    });
+    $("#1").click(function() {
+      var chart_data = [80, 120, 105, 110, 95, 105, 90, 100, 80, 95, 70, 120];
+      var data = myChartData.config.data;
+      data.datasets[0].data = chart_data;
+      data.labels = chart_labels;
+      myChartData.update();
+    });
+
+    $("#2").click(function() {
+      var chart_data = [60, 80, 65, 130, 80, 105, 90, 130, 70, 115, 60, 130];
+      var data = myChartData.config.data;
+      data.datasets[0].data = chart_data;
+      data.labels = chart_labels;
+      myChartData.update();
+    });
+  },
   initDashboardPageCharts: function() {
 
     gradientChartOptionsConfigurationWithTooltipBlue = {
@@ -156,6 +340,56 @@ demo = {
       }
     };
 
+    gradientChartOptionsConfigurationWithTooltipPie = {
+      maintainAspectRatio: false,
+      legend: {
+        display: false
+      },
+
+      tooltips: {
+        backgroundColor: '#f5f5f5',
+        titleFontColor: '#333',
+        bodyFontColor: '#666',
+        bodySpacing: 4,
+        xPadding: 12,
+        mode: "nearest",
+        intersect: 0,
+        position: "nearest"
+      },
+      responsive: true,
+      scales: {
+        yAxes: {
+          display: false
+          // barPercentage: 1.6,
+          // gridLines: {
+          //   drawBorder: false,
+          //   color: 'rgba(29,140,248,0.0)',
+          //   zeroLineColor: "transparent",
+          },
+          // ticks: {
+          //   suggestedMin: 1,
+          //   suggestedMax: 110,
+          //   padding: 10,
+          //   fontColor: "#9a9a9a"
+          // }
+        // }],
+
+        xAxes: {
+          display: false
+          // barPercentage: 1,
+          // gridLines: {
+          //   drawBorder: false,
+          //   color: 'rgba(225,78,202,0.1)',
+          //   zeroLineColor: "transparent",
+          },
+          // ticks: {
+          //   padding: 20,
+          //   fontColor: "#9a9a9a"
+          // }
+        // }]
+      }
+    };
+
     gradientChartOptionsConfigurationWithTooltipPurple = {
       maintainAspectRatio: false,
       legend: {
@@ -182,15 +416,15 @@ demo = {
             zeroLineColor: "transparent",
           },
           ticks: {
-            suggestedMin: 60,
-            suggestedMax: 125,
-            padding: 20,
+            suggestedMin: 1,
+            suggestedMax: 110,
+            padding: 10,
             fontColor: "#9a9a9a"
           }
         }],
 
         xAxes: [{
-          barPercentage: 1.6,
+          barPercentage: 1,
           gridLines: {
             drawBorder: false,
             color: 'rgba(225,78,202,0.1)',
@@ -349,175 +583,180 @@ demo = {
       }
     };
 
-    var ctx = document.getElementById("chartLinePurple").getContext("2d");
-
-    var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
-
-    gradientStroke.addColorStop(1, 'rgba(72,72,176,0.2)');
-    gradientStroke.addColorStop(0.2, 'rgba(72,72,176,0.0)');
-    gradientStroke.addColorStop(0, 'rgba(119,52,169,0)'); //purple colors
-
-    var data = {
-      labels: ['JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'],
-      datasets: [{
-        label: "Data",
-        fill: true,
-        backgroundColor: gradientStroke,
-        borderColor: '#d048b6',
-        borderWidth: 2,
-        borderDash: [],
-        borderDashOffset: 0.0,
-        pointBackgroundColor: '#d048b6',
-        pointBorderColor: 'rgba(255,255,255,0)',
-        pointHoverBackgroundColor: '#d048b6',
-        pointBorderWidth: 20,
-        pointHoverRadius: 4,
-        pointHoverBorderWidth: 15,
-        pointRadius: 4,
-        data: [80, 100, 70, 80, 120, 80],
-      }]
-    };
-
-    var myChart = new Chart(ctx, {
-      type: 'line',
-      data: data,
-      options: gradientChartOptionsConfigurationWithTooltipPurple
-    });
-
-
-    var ctxGreen = document.getElementById("chartLineGreen").getContext("2d");
-
-    var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
-
-    gradientStroke.addColorStop(1, 'rgba(66,134,121,0.15)');
-    gradientStroke.addColorStop(0.4, 'rgba(66,134,121,0.0)'); //green colors
-    gradientStroke.addColorStop(0, 'rgba(66,134,121,0)'); //green colors
-
-    var data = {
-      labels: ['JUL', 'AUG', 'SEP', 'OCT', 'NOV'],
-      datasets: [{
-        label: "My First dataset",
-        fill: true,
-        backgroundColor: gradientStroke,
-        borderColor: '#00d6b4',
-        borderWidth: 2,
-        borderDash: [],
-        borderDashOffset: 0.0,
-        pointBackgroundColor: '#00d6b4',
-        pointBorderColor: 'rgba(255,255,255,0)',
-        pointHoverBackgroundColor: '#00d6b4',
-        pointBorderWidth: 20,
-        pointHoverRadius: 4,
-        pointHoverBorderWidth: 15,
-        pointRadius: 4,
-        data: [90, 27, 60, 12, 80],
-      }]
-    };
-
-    var myChart = new Chart(ctxGreen, {
-      type: 'line',
-      data: data,
-      options: gradientChartOptionsConfigurationWithTooltipGreen
-
-    });
+    // var ctx = document.getElementById("chartLinePurple").getContext("2d");
+    //
+    // var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
+    //
+    // gradientStroke.addColorStop(1, 'rgba(72,72,176,0.2)');
+    // gradientStroke.addColorStop(0.2, 'rgba(72,72,176,0.0)');
+    // gradientStroke.addColorStop(0, 'rgba(119,52,169,0)'); //purple colors
+    //
+    // var data = {
+    //   labels: ["USA", "China", "Ureguay"],
+    //   datasets: [{
+    //     label: "Data",
+    //     fill: true,
+    //     backgroundColor: gradientStroke,
+    //     borderColor: '#d048b6',
+    //     borderWidth: 2,
+    //     borderDash: [],
+    //     borderDashOffset: 0.0,
+    //     pointBackgroundColor: '#d048b6',
+    //     pointBorderColor: 'rgba(255,255,255,0)',
+    //     pointHoverBackgroundColor: '#d048b6',
+    //     pointBorderWidth: 20,
+    //     pointHoverRadius: 4,
+    //     pointHoverBorderWidth: 15,
+    //     pointRadius: 4,
+    //     data: [80, 100, 70],
+    //   }]
+    // };
+    //
+    // var myChart = new Chart(ctx, {
+    //   type: 'pie',
+    //   data: data,
+    //   options: gradientChartOptionsConfigurationWithTooltipPurple
+    // });
 
 
-
-    var chart_labels = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
-    var chart_data = [100, 70, 90, 70, 85, 60, 75, 60, 90, 80, 110, 100];
-
-
-    var ctx = document.getElementById("chartBig1").getContext('2d');
-
-    var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
-
-    gradientStroke.addColorStop(1, 'rgba(72,72,176,0.1)');
-    gradientStroke.addColorStop(0.4, 'rgba(72,72,176,0.0)');
-    gradientStroke.addColorStop(0, 'rgba(119,52,169,0)'); //purple colors
-    var config = {
-      type: 'line',
-      data: {
-        labels: chart_labels,
-        datasets: [{
-          label: "My First dataset",
-          fill: true,
-          backgroundColor: gradientStroke,
-          borderColor: '#d346b1',
-          borderWidth: 2,
-          borderDash: [],
-          borderDashOffset: 0.0,
-          pointBackgroundColor: '#d346b1',
-          pointBorderColor: 'rgba(255,255,255,0)',
-          pointHoverBackgroundColor: '#d346b1',
-          pointBorderWidth: 20,
-          pointHoverRadius: 4,
-          pointHoverBorderWidth: 15,
-          pointRadius: 4,
-          data: chart_data,
-        }]
-      },
-      options: gradientChartOptionsConfigurationWithTooltipPurple
-    };
-    var myChartData = new Chart(ctx, config);
-    $("#0").click(function() {
-      var data = myChartData.config.data;
-      data.datasets[0].data = chart_data;
-      data.labels = chart_labels;
-      myChartData.update();
-    });
-    $("#1").click(function() {
-      var chart_data = [80, 120, 105, 110, 95, 105, 90, 100, 80, 95, 70, 120];
-      var data = myChartData.config.data;
-      data.datasets[0].data = chart_data;
-      data.labels = chart_labels;
-      myChartData.update();
-    });
-
-    $("#2").click(function() {
-      var chart_data = [60, 80, 65, 130, 80, 105, 90, 130, 70, 115, 60, 130];
-      var data = myChartData.config.data;
-      data.datasets[0].data = chart_data;
-      data.labels = chart_labels;
-      myChartData.update();
-    });
+    // var ctxGreen = document.getElementById("chartLineGreen").getContext("2d");
+    //
+    // var gradientStroke = ctxGreen.createLinearGradient(0, 230, 0, 50);
+    //
+    // gradientStroke.addColorStop(1, 'rgba(66,134,121,0.15)');
+    // gradientStroke.addColorStop(0.4, 'rgba(66,134,121,0.0)'); //green colors
+    // gradientStroke.addColorStop(0, 'rgba(66,134,121,0)'); //green colors
+    // var testLabels = [];
+    // var testData = [];
+    //
+    // for (i = 0; i < 31; i++){
+    //   testLabels.push(i);
+    //   testData.push(i);
+    // };
+    //
+    // var data = {
+    //   labels: testLabels,
+    //   datasets: [{
+    //     label: "My First dataset",
+    //     fill: true,
+    //     backgroundColor: gradientStroke,
+    //     borderColor: '#00d6b4',
+    //     borderWidth: 2,
+    //     borderDash: [],
+    //     borderDashOffset: 0.0,
+    //     pointBackgroundColor: '#00d6b4',
+    //     pointBorderColor: 'rgba(255,255,255,0)',
+    //     pointHoverBackgroundColor: '#00d6b4',
+    //     pointBorderWidth: 20,
+    //     pointHoverRadius: 4,
+    //     pointHoverBorderWidth: 15,
+    //     pointRadius: 4,
+    //     data: testData,
+    //   }]
+    // };
+    //
+    // var myChart = new Chart(ctxGreen, {
+    //   type: 'line',
+    //   data: data,
+    //   options: gradientChartOptionsConfigurationWithTooltipGreen
+    //
+    // });
 
 
-    var ctx = document.getElementById("CountryChart").getContext("2d");
 
-    var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
+    // var chart_labels = ['China', 'USA', 'Argentina'];
+    // var chart_data = [100, 20 , 3];
+    //
+    // var ctx = document.getElementById("chartBig1").getContext('2d');
+    // var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
+    //
+    // gradientStroke.addColorStop(1, 'rgba(72,72,176,0.1)');
+    // gradientStroke.addColorStop(0.4, 'rgba(72,72,176,0.0)');
+    // gradientStroke.addColorStop(0, 'rgba(119,52,169,0)'); //purple colors
+    // var config = {
+    //   type: 'bar',
+    //   data: {
+    //     labels: chart_labels,
+    //     datasets: [{
+    //       label: "Reactors",
+    //       fill: true,
+    //       backgroundColor: gradientStroke,
+    //       borderColor: '#d346b1',
+    //       borderWidth: 2,
+    //       borderDash: [],
+    //       borderDashOffset: 0.0,
+    //       pointBackgroundColor: '#d346b1',
+    //       pointBorderColor: 'rgba(255,255,255,0)',
+    //       pointHoverBackgroundColor: '#d346b1',
+    //       pointBorderWidth: 20,
+    //       pointHoverRadius: 4,
+    //       pointHoverBorderWidth: 15,
+    //       pointRadius: 4,
+    //       data: chart_data,
+    //     }]
+    //   },
+    //   options: gradientChartOptionsConfigurationWithTooltipPurple
+    // };
+    // var myChartData = new Chart(ctx, config);
+    // $("#0").click(function() {
+    //   var data = myChartData.config.data;
+    //   data.datasets[0].data = chart_data;
+    //   data.labels = chart_labels;
+    //   myChartData.update();
+    // });
+    // $("#1").click(function() {
+    //   var chart_data = [80, 120, 105, 110, 95, 105, 90, 100, 80, 95, 70, 120];
+    //   var data = myChartData.config.data;
+    //   data.datasets[0].data = chart_data;
+    //   data.labels = chart_labels;
+    //   myChartData.update();
+    // });
+    //
+    // $("#2").click(function() {
+    //   var chart_data = [60, 80, 65, 130, 80, 105, 90, 130, 70, 115, 60, 130];
+    //   var data = myChartData.config.data;
+    //   data.datasets[0].data = chart_data;
+    //   data.labels = chart_labels;
+    //   myChartData.update();
+    // });
 
-    gradientStroke.addColorStop(1, 'rgba(29,140,248,0.2)');
-    gradientStroke.addColorStop(0.4, 'rgba(29,140,248,0.0)');
-    gradientStroke.addColorStop(0, 'rgba(29,140,248,0)'); //blue colors
 
-
-    var myChart = new Chart(ctx, {
-      type: 'bar',
-      responsive: true,
-      legend: {
-        display: false
-      },
-      data: {
-        labels: ['USA', 'GER', 'AUS', 'UK', 'RO', 'BR'],
-        datasets: [{
-          label: "Countries",
-          fill: true,
-          backgroundColor: gradientStroke,
-          hoverBackgroundColor: gradientStroke,
-          borderColor: '#1f8ef1',
-          borderWidth: 2,
-          borderDash: [],
-          borderDashOffset: 0.0,
-          data: [53, 20, 10, 80, 100, 45],
-        }]
-      },
-      options: gradientBarChartConfiguration
-    });
+    // var ctx = document.getElementById("CountryChart").getContext("2d");
+    //
+    // var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
+    //
+    // gradientStroke.addColorStop(1, 'rgba(29,140,248,0.2)');
+    // gradientStroke.addColorStop(0.4, 'rgba(29,140,248,0.0)');
+    // gradientStroke.addColorStop(0, 'rgba(29,140,248,0)'); //blue colors
+    //
+    //
+    // var myChart = new Chart(ctx, {
+    //   type: 'bar',
+    //   responsive: true,
+    //   legend: {
+    //     display: false
+    //   },
+    //   data: {
+    //     labels: ['USA', 'GER', 'AUS', 'UK', 'RO', 'BR'],
+    //     datasets: [{
+    //       label: "Countries",
+    //       fill: true,
+    //       backgroundColor: gradientStroke,
+    //       hoverBackgroundColor: gradientStroke,
+    //       borderColor: '#1f8ef1',
+    //       borderWidth: 2,
+    //       borderDash: [],
+    //       borderDashOffset: 0.0,
+    //       data: [53, 20, 10, 80, 100, 45],
+    //     }]
+    //   },
+    //   options: gradientBarChartConfiguration
+    // });
 
   },
 
   initGoogleMaps: function() {
-    var myLatlng = new google.maps.LatLng(40.748817, -73.985428);
+    var myLatlng = new google.maps.LatLng(42.2808, -83.7430);
     var mapOptions = {
       zoom: 13,
       center: myLatlng,
@@ -712,14 +951,27 @@ demo = {
     };
 
     var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+    var marker, i;
+    var locations = [
+      ['Bondi Beach', -33.890542, 151.274856, 4],
+      ['Coogee Beach', -33.923036, 151.259052, 5],
+      ['Cronulla Beach', -34.028249, 151.157507, 3],
+      ['Manly Beach', -33.80010128657071, 151.28747820854187, 2],
+      ['Maroubra Beach', -33.950198, 151.259302, 1]
+    ];
 
-    var marker = new google.maps.Marker({
-      position: myLatlng,
-      title: "Hello World!"
-    });
+    for (i=0; i < locations.length; i++){
+      marker = new google.maps.Marker({
+        position: new google.maps.LatLng(locations[i][1],locations[i][2]),
+      map:map});
+    }
+    // var marker = new google.maps.Marker({
+    //   position: myLatlng,
+    //   title: "Hello World!"
+    // });
 
     // To add the marker to the map, call setMap();
-    marker.setMap(map);
+    // marker.setMap(map);
   },
 
   showNotification: function(from, align) {
